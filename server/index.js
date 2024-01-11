@@ -3,18 +3,12 @@ import dotenv from 'dotenv';
 import mongoose from 'mongoose';
 
 import userRouter from './routes/auth.route.js';
+import manageError from './middleware/manageError.js';
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-// middlewares
-// ? for parsing application/json
-app.use(express.json());
-
-// routes
-app.use('/api/auth', userRouter);
 
 // connect to DB
 mongoose
@@ -26,7 +20,18 @@ mongoose
       console.log(err);
    });
 
+// middlewares
+// ? for parsing application/json
+app.use(express.json());
+
 // start server
 app.listen(PORT, () => {
    console.log(`Server running on port ${PORT}`);
 });
+
+// routes
+app.use('/api/auth', userRouter);
+
+// error handler
+
+app.use(manageError);
