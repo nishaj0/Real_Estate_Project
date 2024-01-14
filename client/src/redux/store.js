@@ -12,7 +12,6 @@ const persistConfig = {
    storage,
    version: 1,
 };
-console.log({storage});
 
 // ? create a persisted reducer
 const persistedReducer = persistReducer(persistConfig, rootReducer);
